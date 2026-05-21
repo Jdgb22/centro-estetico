@@ -1,0 +1,266 @@
+---
+interface Props {
+	siteName?: string;
+}
+
+const { siteName = 'Lúmina' } = Astro.props;
+
+const navLinks = [
+	{ href: '#servicios', label: 'Servicios' },
+	{ href: '#beneficios', label: 'Beneficios' },
+	{ href: '#testimonios', label: 'Testimonios' },
+	{ href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header
+	id="main-navbar"
+	class="fixed top-0 right-0 left-0 z-50 transition-all duration-500"
+>
+	<div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+		<!-- Logo -->
+		<a href="/" class="group flex items-center gap-2" aria-label="Ir al inicio">
+			<span class="flex h-9 w-9 items-center justify-center rounded-full bg-champagne text-pure text-sm font-bold shadow-soft transition-transform duration-300 group-hover:scale-110">
+				L
+			</span>
+			<span class="font-heading text-xl font-semibold tracking-tight text-mocha transition-colors duration-300 group-hover:text-champagne">
+				{siteName}
+			</span>
+		</a>
+
+		<!-- Desktop Nav -->
+		<nav class="hidden items-center gap-1 md:flex" aria-label="Navegación principal">
+			{navLinks.map((link) => (
+				<a
+					href={link.href}
+					class="nav-link relative rounded-full px-4 py-2 text-sm font-medium text-taupe transition-all duration-300 hover:bg-sand/60 hover:text-champagne"
+				>
+					{link.label}
+				</a>
+			))}
+		</nav>
+
+		<!-- Desktop CTA -->
+		<a
+			href="#contacto"
+			class="hidden rounded-full bg-champagne px-5 py-2.5 text-sm font-semibold text-pure shadow-soft transition-all duration-300 hover:bg-terracotta hover:shadow-lg hover:-translate-y-0.5 md:inline-flex"
+		>
+			Reserva tu cita
+		</a>
+
+		<!-- Mobile Menu Button -->
+		<button
+			id="mobile-menu-btn"
+			type="button"
+			class="relative flex h-10 w-10 items-center justify-center rounded-xl text-mocha transition-colors duration-300 hover:bg-sand/60 md:hidden"
+			aria-label="Abrir menú"
+			aria-expanded="false"
+		>
+			<div class="hamburger-icon flex flex-col gap-1.5">
+				<span class="block h-0.5 w-5 rounded-full bg-current transition-all duration-300 origin-center"></span>
+				<span class="block h-0.5 w-5 rounded-full bg-current transition-all duration-300"></span>
+				<span class="block h-0.5 w-5 rounded-full bg-current transition-all duration-300 origin-center"></span>
+			</div>
+		</button>
+	</div>
+
+	<!-- Mobile Menu Drawer -->
+	<div
+		id="mobile-drawer"
+		popover="manual"
+		class="mobile-drawer fixed inset-0 z-[100] m-0 h-full w-full border-none bg-transparent p-0"
+	>
+		<div id="drawer-backdrop" class="absolute inset-0 bg-mocha/40 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+		<nav
+			id="drawer-panel"
+			class="absolute top-0 right-0 flex h-full w-72 translate-x-full flex-col bg-ivory shadow-2xl transition-transform duration-300 ease-out"
+			aria-label="Menú móvil"
+		>
+			<!-- Drawer Header -->
+			<div class="flex items-center justify-between border-b border-sand px-6 py-5">
+				<span class="font-heading text-lg font-semibold text-mocha">{siteName}</span>
+				<button
+					id="close-drawer-btn"
+					type="button"
+					class="flex h-9 w-9 items-center justify-center rounded-xl text-taupe transition-colors duration-300 hover:bg-sand/60 hover:text-mocha"
+					aria-label="Cerrar menú"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
+			</div>
+
+			<!-- Drawer Links -->
+			<div class="flex flex-1 flex-col gap-1 px-4 py-6">
+				{navLinks.map((link, i) => (
+					<a
+						href={link.href}
+						class="drawer-link rounded-xl px-4 py-3 text-base font-medium text-mocha transition-all duration-300 hover:bg-sand/60 hover:text-champagne hover:pl-6"
+						style={`transition-delay: ${(i + 1) * 60}ms`}
+					>
+						{link.label}
+					</a>
+				))}
+			</div>
+
+			<!-- Drawer CTA -->
+			<div class="border-t border-sand px-6 py-6">
+				<a
+					href="#contacto"
+					class="drawer-link flex items-center justify-center rounded-full bg-champagne px-6 py-3 text-sm font-semibold text-pure shadow-soft transition-all duration-300 hover:bg-terracotta"
+					style="transition-delay: 320ms"
+				>
+					Reserva tu cita
+				</a>
+			</div>
+		</nav>
+	</div>
+</header>
+
+<!-- Spacer to prevent content from hiding behind the fixed navbar -->
+<div class="h-[72px]"></div>
+
+<style>
+	/* Navbar scrolled state */
+	#main-navbar {
+		background: transparent;
+	}
+
+	#main-navbar.scrolled {
+		background: rgba(248, 244, 239, 0.92);
+		backdrop-filter: blur(20px) saturate(180%);
+		-webkit-backdrop-filter: blur(20px) saturate(180%);
+		border-bottom: 1px solid rgba(200, 169, 126, 0.15);
+		box-shadow: 0 4px 30px rgba(58, 49, 43, 0.04);
+	}
+
+	/* Hamburger animation */
+	#mobile-menu-btn[aria-expanded="true"] .hamburger-icon span:nth-child(1) {
+		transform: translateY(4px) rotate(45deg);
+	}
+	#mobile-menu-btn[aria-expanded="true"] .hamburger-icon span:nth-child(2) {
+		opacity: 0;
+		transform: scaleX(0);
+	}
+	#mobile-menu-btn[aria-expanded="true"] .hamburger-icon span:nth-child(3) {
+		transform: translateY(-4px) rotate(-45deg);
+	}
+
+	/* Drawer open animations */
+	.mobile-drawer.open #drawer-backdrop {
+		opacity: 1;
+	}
+	.mobile-drawer.open #drawer-panel {
+		transform: translateX(0);
+	}
+
+	/* Drawer link entrance */
+	.drawer-link {
+		opacity: 0;
+		transform: translateX(20px);
+	}
+	.mobile-drawer.open .drawer-link {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	/* Active nav link indicator */
+	.nav-link::after {
+		content: '';
+		position: absolute;
+		bottom: 2px;
+		left: 50%;
+		width: 0;
+		height: 2px;
+		background: var(--color-champagne);
+		border-radius: 1px;
+		transition: all 0.3s ease;
+		transform: translateX(-50%);
+	}
+	.nav-link:hover::after,
+	.nav-link.active::after {
+		width: 20px;
+	}
+</style>
+
+<script>
+	// Scroll effect for navbar
+	const navbar = document.getElementById('main-navbar');
+	function handleScroll() {
+		if (window.scrollY > 20) {
+			navbar?.classList.add('scrolled');
+		} else {
+			navbar?.classList.remove('scrolled');
+		}
+	}
+	window.addEventListener('scroll', handleScroll, { passive: true });
+	handleScroll();
+
+	// Mobile drawer
+	const menuBtn = document.getElementById('mobile-menu-btn') as HTMLButtonElement;
+	const closeBtn = document.getElementById('close-drawer-btn') as HTMLButtonElement;
+	const drawer = document.getElementById('mobile-drawer') as HTMLElement;
+	const backdrop = document.getElementById('drawer-backdrop') as HTMLElement;
+	const panel = document.getElementById('drawer-panel') as HTMLElement;
+
+	function openDrawer() {
+		drawer.showPopover();
+		// Allow the popover to render, then animate in
+		requestAnimationFrame(() => {
+			drawer.classList.add('open');
+			menuBtn.setAttribute('aria-expanded', 'true');
+			document.body.style.overflow = 'hidden';
+			panel.focus();
+		});
+	}
+
+	function closeDrawer() {
+		drawer.classList.remove('open');
+		menuBtn.setAttribute('aria-expanded', 'false');
+		document.body.style.overflow = '';
+		// Wait for animation to complete before hiding popover
+		setTimeout(() => {
+			drawer.hidePopover();
+		}, 300);
+	}
+
+	menuBtn?.addEventListener('click', openDrawer);
+	closeBtn?.addEventListener('click', closeDrawer);
+	backdrop?.addEventListener('click', closeDrawer);
+
+	// Close on link click
+	drawer?.querySelectorAll('a').forEach((link) => {
+		link.addEventListener('click', closeDrawer);
+	});
+
+	// Close on Escape
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && drawer.matches(':popover-open')) {
+			closeDrawer();
+		}
+	});
+
+	// Active section highlight
+	const sections = document.querySelectorAll('section[id]');
+	const navLinks = document.querySelectorAll('.nav-link');
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					navLinks.forEach((link) => {
+						link.classList.toggle(
+							'active',
+							link.getAttribute('href') === `#${entry.target.id}`
+						);
+					});
+				}
+			});
+		},
+		{ rootMargin: '-20% 0px -70% 0px' }
+	);
+
+	sections.forEach((section) => observer.observe(section));
+</script>
