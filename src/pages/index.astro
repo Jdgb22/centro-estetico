@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Carousel from '../components/Carousel.astro';
 
 const services = [
 	{
@@ -169,6 +170,15 @@ const testimonials = [
 					</div>
 				</div>
 			</div>
+		</section>
+
+		<section id="galeria" class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+			<div class="mb-10 text-center">
+				<p class="text-sm font-semibold uppercase tracking-wide text-champagne">Nuestras Instalaciones</p>
+				<h2 class="font-heading mt-2 text-3xl font-bold text-mocha">Un espacio pensado para ti</h2>
+				<p class="mt-4 text-taupe max-w-2xl mx-auto">Descubre un ambiente diseñado especialmente para tu confort y relajación. Equipado con la mejor tecnología para tus tratamientos.</p>
+			</div>
+			<Carousel />
 		</section>
 
 		<section id="testimonios" class="mx-auto max-w-6xl px-6 py-16 md:py-20">
