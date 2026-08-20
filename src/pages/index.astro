@@ -2,6 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Carousel from '../components/Carousel.astro';
 
+import img1 from '../assets/images/Dr.yulianagiraldo.jpg';
+import video from '../assets/videos/videointroduccion.mp4';
+
+const galleryImages = [
+	{ type: 'video', src: video.toString, alt: 'Video de las instalaciones' },
+	{ type: 'image', src: img1.src, alt: 'Instalaciones Centro Estético 1' },
+];
+
 const services = [
 	{
 		name: 'Limpieza facial premium',
@@ -53,13 +61,13 @@ const testimonials = [
 ---
 
 <Layout
-	title="Centro Estético Lúmina | Cuidado facial y corporal"
+	title="Dra. Yuliana Giraldo | Medica estetica"
 	description="Centro estético especializado en tratamientos faciales, corporales y bienestar integral en un espacio profesional y acogedor."
 >
 	<main class="min-h-screen">
 		<header class="sticky top-0 z-20 border-b border-sand/60 bg-ivory/90 backdrop-blur">
 			<div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-				<p class="font-heading text-lg font-semibold tracking-tight text-champagne">Dr. Yuliana Giraldo</p>
+				<p class="font-heading text-lg font-semibold tracking-tight text-champagne">Dra. Yuliana Giraldo</p>
 				<nav class="hidden items-center gap-6 text-sm font-medium text-taupe md:flex">
 					<a href="#servicios" class="transition hover:text-champagne">Servicios</a>
 					<a href="#beneficios" class="transition hover:text-champagne">Beneficios</a>
@@ -74,6 +82,15 @@ const testimonials = [
 				</a>
 			</div>
 		</header>
+
+		<section id="galeria" class="mx-auto max-w-6xl px-6 pt-10 pb-16 md:pt-14 md:pb-20">
+			<div class="mb-10 text-center">
+				<p class="text-sm font-semibold uppercase tracking-wide text-champagne">Nuestras Instalaciones</p>
+				<h2 class="font-heading mt-2 text-3xl font-bold text-mocha">Un espacio pensado para ti</h2>
+				<p class="mt-4 text-taupe max-w-2xl mx-auto">Descubre un ambiente diseñado especialmente para tu confort y relajación. Equipado con la mejor tecnología para tus tratamientos.</p>
+			</div>
+			<Carousel images={galleryImages as unknown as { type?: 'video' | 'image'; src: string; alt?: string }[]} />
+		</section>
 
 		<section class="relative overflow-hidden bg-gradient-to-br from-sand via-ivory to-nude/30">
 			<div class="absolute -top-24 -right-16 h-64 w-64 rounded-full bg-champagne/30 blur-3xl"></div>
@@ -171,16 +188,6 @@ const testimonials = [
 				</div>
 			</div>
 		</section>
-
-		<section id="galeria" class="mx-auto max-w-6xl px-6 py-16 md:py-20">
-			<div class="mb-10 text-center">
-				<p class="text-sm font-semibold uppercase tracking-wide text-champagne">Nuestras Instalaciones</p>
-				<h2 class="font-heading mt-2 text-3xl font-bold text-mocha">Un espacio pensado para ti</h2>
-				<p class="mt-4 text-taupe max-w-2xl mx-auto">Descubre un ambiente diseñado especialmente para tu confort y relajación. Equipado con la mejor tecnología para tus tratamientos.</p>
-			</div>
-			<Carousel />
-		</section>
-
 		<section id="testimonios" class="mx-auto max-w-6xl px-6 py-16 md:py-20">
 			<p class="text-sm font-semibold uppercase tracking-wide text-champagne">Testimonios</p>
 			<h2 class="font-heading mt-2 text-3xl font-bold text-mocha">Lo que dicen nuestras clientas</h2>
@@ -221,7 +228,7 @@ const testimonials = [
 		</section>
 
 		<footer class="border-t border-champagne/30 bg-mocha px-6 py-5 text-center text-sm text-sand">
-			© {new Date().getFullYear()} Dr. Yuliana Giraldo Medica Estetica. Todos los derechos reservados.
+			© {new Date().getFullYear()} Dra. Yuliana Giraldo Medica Estetica. Todos los derechos reservados.
 			<a href="https://www.instagram.com/dra.yulianagiraldom/" class="text-champagne">Instagram</a>
 			<a href="https://www.tiktok.com/@dra.yulianagiraldom" class="text-champagne">TikTok</a>
 			<a href="whatsapp://send?phone=+573243675031" class="text-champagne">WhatsApp</a>
