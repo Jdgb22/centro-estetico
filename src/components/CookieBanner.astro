@@ -1,0 +1,49 @@
+---
+---
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 translate-y-full transform transition-transform duration-500 ease-in-out">
+  <div class="mx-auto max-w-6xl p-4 md:p-6">
+    <div class="flex flex-col items-center justify-between gap-4 rounded-2xl bg-mocha/95 p-6 text-sand shadow-2xl backdrop-blur-md border border-champagne/20 md:flex-row">
+      <div class="text-sm">
+        <p class="font-medium text-pure mb-1">Valoramos tu privacidad</p>
+        <p class="text-sand/80">
+          Utilizamos cookies para mejorar tu experiencia de navegación y analizar nuestro tráfico. Al continuar navegando, aceptas nuestro uso de cookies.
+        </p>
+      </div>
+      <div class="flex w-full shrink-0 gap-3 md:w-auto">
+        <button id="accept-cookies" class="w-full rounded-full bg-champagne px-6 py-2.5 text-sm font-semibold text-mocha transition hover:bg-pure md:w-auto hover:scale-105">
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    initCookieBanner();
+  });
+  
+  // Inicialización directa para asegurar que funciona sin ViewTransitions
+  initCookieBanner();
+
+  function initCookieBanner() {
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('accept-cookies');
+
+    if (!banner || !acceptBtn) return;
+
+    // Verificar si ya aceptó las cookies
+    if (!localStorage.getItem('cookieConsent')) {
+      // Mostrar el banner con un pequeño retraso
+      setTimeout(() => {
+        banner.classList.remove('translate-y-full');
+      }, 500);
+    }
+
+    // Manejar el click en Aceptar
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'true');
+      banner.classList.add('translate-y-full');
+    });
+  }
+</script>
