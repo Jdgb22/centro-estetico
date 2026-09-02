@@ -11,7 +11,7 @@ const { images = [
 ---
 
 <div class="carousel-container relative w-full max-w-5xl mx-auto overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl shadow-sand/50 group">
-  <div class="carousel-track flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] h-[500px] md:h-[600px]">
+  <div class="carousel-track flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] aspect-square md:aspect-[16/9] md:max-h-[600px]">
     {images.map((img, index) => (
       <div class="carousel-slide min-w-full shrink-0 h-full relative bg-sand/20">
         {img.type === 'video' ? (
