@@ -13,7 +13,7 @@ const { images = [
 <div class="carousel-container relative w-full max-w-5xl mx-auto overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl shadow-sand/50 group">
   <div class="carousel-track flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] h-[500px] md:h-[600px] will-change-transform">
     {images.map((img, index) => (
-      <div class="carousel-slide w-full shrink-0 flex-none relative bg-sand/20" style="flex: 0 0 100%;">
+      <div class="carousel-slide w-full h-full shrink-0 flex-none relative bg-sand/20" style="flex: 0 0 100%;">
         {img.type === 'video' ? (
           <video 
             src={img.src} 
@@ -23,7 +23,7 @@ const { images = [
             webkit-playsinline
           ></video>
         ) : (
-          <img src={img.src} alt={img.alt || "Imagen del carrusel"} class="absolute inset-0 w-full h-full object-contain object-center transition-transform duration-[10s] group-hover:scale-105" loading={index === 0 ? "eager" : "lazy"} />
+          <img src={img.src} alt={img.alt || "Imagen del carrusel"} class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[10s] group-hover:scale-105" loading={index === 0 ? "eager" : "lazy"} />
         )}
       </div>
     ))}
