@@ -411,7 +411,7 @@ const testimonials = [
       <div
         class="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-2 md:py-20"
       >
-        <div>
+        <div class="text-center md:text-left flex flex-col items-center md:items-start">
           <p
             class="text-sm font-semibold uppercase tracking-wide text-champagne"
           >
@@ -425,18 +425,19 @@ const testimonials = [
             objetivos estéticos y de bienestar.
           </p>
         </div>
-        <div class="space-y-4 rounded-2xl bg-pure/10 p-6 backdrop-blur">
-          <p>
-            <span class="font-semibold text-champagne">WhatsApp:</span> +57 324 367
-            5031
-          </p>
-          <p>
-            <span class="font-semibold text-champagne">Email:</span> dra.yulianagiraldo.medestetica@gmail.com
-          </p>
-          <p>
-            <span class="font-semibold text-champagne">Dirección:</span> Torre Médica
-            Oviedo – Consultorio 691 Medellín Colombia - Barrio Poblado
-          </p>
+        <div class="space-y-6 rounded-3xl bg-pure/10 p-8 backdrop-blur shadow-xl shadow-black/10">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wider text-champagne">WhatsApp</p>
+            <p class="mt-1 text-lg">+57 324 367 5031</p>
+          </div>
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wider text-champagne">Email</p>
+            <p class="mt-1 text-base break-all">dra.yulianagiraldo.medestetica@gmail.com</p>
+          </div>
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wider text-champagne">Dirección</p>
+            <p class="mt-1 leading-relaxed">Torre Médica Oviedo – Consultorio 691<br/>Medellín Colombia - Barrio Poblado</p>
+          </div>
           <a
             href="https://api.whatsapp.com/send?phone=573243675031&text=Hola%20Doctora%20Yuliana%2C%20quisiera%20agendar%20una%20cita."
             target="_blank"
