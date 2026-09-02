@@ -20,6 +20,12 @@ const {
 		<link rel="icon" type="image/svg+xml" href="/estetica.svg" />
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Cabeceras de Seguridad Básicas (Punto 18) -->
+		<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+		<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+		<meta name="referrer" content="strict-origin-when-cross-origin" />
+		
 		<title>{title}</title>
 	</head>
 	<body class="bg-ivory text-mocha font-body antialiased">
