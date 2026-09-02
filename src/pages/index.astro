@@ -469,21 +469,19 @@ const testimonials = [
 </Layout>
 
 <script>
-  // Script para garantizar que solo un acordeón esté abierto a la vez (soporte cross-browser)
-  document.addEventListener('astro:page-load', () => {
-    const accordions = document.querySelectorAll('.service-accordion');
-    accordions.forEach((accordion) => {
-      accordion.addEventListener('toggle', (e) => {
-        const targetDetails = e.target as HTMLDetailsElement;
-        // Si el acordeón actual se acaba de abrir, cerramos los demás
-        if (targetDetails.open) {
-          accordions.forEach((acc) => {
-            if (acc !== targetDetails && acc.hasAttribute('open')) {
-              acc.removeAttribute('open');
-            }
-          });
-        }
-      });
+  // Script para garantizar que solo un acordeón esté abierto a la vez
+  const accordions = document.querySelectorAll('.service-accordion');
+  accordions.forEach((accordion) => {
+    accordion.addEventListener('toggle', (e) => {
+      const targetDetails = e.target as HTMLDetailsElement;
+      // Si el acordeón actual se acaba de abrir, cerramos los demás
+      if (targetDetails.open) {
+        accordions.forEach((acc) => {
+          if (acc !== targetDetails && acc.hasAttribute('open')) {
+            acc.removeAttribute('open');
+          }
+        });
+      }
     });
   });
 </script>
