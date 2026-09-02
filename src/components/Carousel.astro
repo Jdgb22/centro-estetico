@@ -212,16 +212,19 @@ const { images = [
         }
       });
 
-      // Handle videos
+      const currentSlide = this.slides[this.currentIndex];
+      const currentVideo = currentSlide.querySelector('.carousel-video') as HTMLVideoElement | null;
+
+      // Handle videos: pause and reset only the ones that are NOT in the current slide
       this.videos.forEach(v => {
-        v.pause();
-        v.currentTime = 0;
+        if (v !== currentVideo) {
+          v.pause();
+          v.currentTime = 0;
+        }
       });
 
-      const currentSlide = this.slides[this.currentIndex];
-      const video = currentSlide.querySelector('.carousel-video') as HTMLVideoElement | null;
-      if (video) {
-        video.play().catch(e => console.error("Error playing video:", e));
+      if (currentVideo && currentVideo.paused) {
+        currentVideo.play().catch(e => console.error("Error playing video:", e));
       }
     }
     
