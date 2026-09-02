@@ -11,18 +11,19 @@ const { images = [
 ---
 
 <div class="carousel-container relative w-full max-w-5xl mx-auto overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl shadow-sand/50 group">
-  <div class="carousel-track flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] aspect-square md:aspect-[16/9] md:max-h-[600px]">
+  <div class="carousel-track flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] aspect-square md:aspect-[16/9] md:max-h-[600px] will-change-transform">
     {images.map((img, index) => (
-      <div class="carousel-slide min-w-full shrink-0 h-full relative bg-sand/20">
+      <div class="carousel-slide w-full shrink-0 flex-none relative bg-sand/20" style="flex: 0 0 100%;">
         {img.type === 'video' ? (
           <video 
             src={img.src} 
-            class="w-full h-full object-cover carousel-video" 
+            class="absolute inset-0 w-full h-full object-cover carousel-video" 
             muted 
             playsinline 
+            webkit-playsinline
           ></video>
         ) : (
-          <img src={img.src} alt={img.alt || "Imagen del carrusel"} class="w-full h-full object-cover object-center transition-transform duration-[10s] group-hover:scale-105" loading={index === 0 ? "eager" : "lazy"} />
+          <img src={img.src} alt={img.alt || "Imagen del carrusel"} class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[10s] group-hover:scale-105" loading={index === 0 ? "eager" : "lazy"} />
         )}
       </div>
     ))}

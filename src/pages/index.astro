@@ -302,7 +302,7 @@ const testimonials = [
       <div class="mx-auto max-w-3xl space-y-4">
         {
           categories.map((category) => (
-            <details class="group rounded-2xl border border-sand bg-pure shadow-sm [&_summary::-webkit-details-marker]:hidden">
+            <details name="services" class="service-accordion group rounded-2xl border border-sand bg-pure shadow-sm [&_summary::-webkit-details-marker]:hidden">
               <summary class="flex cursor-pointer items-start justify-between gap-4 p-6 text-mocha transition hover:bg-sand/30">
                 <div class="flex items-start gap-4">
                   <span class="text-2xl mt-1" aria-hidden="true">{category.icon}</span>
@@ -467,3 +467,23 @@ const testimonials = [
     </footer>
   </main>
 </Layout>
+
+<script>
+  // Script para garantizar que solo un acordeón esté abierto a la vez (soporte cross-browser)
+  document.addEventListener('astro:page-load', () => {
+    const accordions = document.querySelectorAll('.service-accordion');
+    accordions.forEach((accordion) => {
+      accordion.addEventListener('toggle', (e) => {
+        const targetDetails = e.target as HTMLDetailsElement;
+        // Si el acordeón actual se acaba de abrir, cerramos los demás
+        if (targetDetails.open) {
+          accordions.forEach((acc) => {
+            if (acc !== targetDetails && acc.hasAttribute('open')) {
+              acc.removeAttribute('open');
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
