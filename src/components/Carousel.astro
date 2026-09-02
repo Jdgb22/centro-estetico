@@ -163,6 +163,7 @@ const { images = [
     touchStart(e: TouchEvent) {
       this.isDragging = true;
       this.startX = e.touches[0].clientX;
+      this.currentX = this.startX; // Fix: initialize currentX so a tap without move gives diff = 0
       if (this.track) this.track.style.transition = 'none'; // Quitar transición suave durante el arrastre
       this.stopAutoPlay();
     }
