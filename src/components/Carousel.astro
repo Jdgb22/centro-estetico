@@ -17,9 +17,7 @@ const { images = [
         {img.type === 'video' ? (
           <video 
             src={img.src} 
-            class="w-full h-full object-cover" 
-            autoplay 
-            loop 
+            class="w-full h-full object-cover carousel-video" 
             muted 
             playsinline 
           ></video>
@@ -58,6 +56,7 @@ const { images = [
     nextBtn: HTMLButtonElement | null;
     prevBtn: HTMLButtonElement | null;
     indicators: NodeListOf<HTMLElement>;
+    videos: NodeListOf<HTMLVideoElement>;
     
     currentIndex: number;
     totalSlides: number;
@@ -66,6 +65,7 @@ const { images = [
     startX: number;
     currentX: number;
     autoPlayInterval?: number;
+    isHovered: boolean;
 
     constructor(container: HTMLElement) {
       this.container = container;
@@ -74,6 +74,7 @@ const { images = [
       this.nextBtn = container.querySelector('.carousel-next');
       this.prevBtn = container.querySelector('.carousel-prev');
       this.indicators = container.querySelectorAll('.indicator');
+      this.videos = container.querySelectorAll('.carousel-video');
       
       this.currentIndex = 0;
       this.totalSlides = this.slides.length;
@@ -82,6 +83,7 @@ const { images = [
       this.isDragging = false;
       this.startX = 0;
       this.currentX = 0;
+      this.isHovered = false;
       
       if (this.totalSlides > 1) {
         this.init();
@@ -95,19 +97,33 @@ const { images = [
     }
     
     init() {
-      if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.next());
-      if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prev());
+      if (this.nextBtn) this.nextBtn.addEventListener('click', () => { this.next(); this.startAutoPlay(); });
+      if (this.prevBtn) this.prevBtn.addEventListener('click', () => { this.prev(); this.startAutoPlay(); });
       
       this.indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => this.goTo(index));
+        indicator.addEventListener('click', () => { this.goTo(index); this.startAutoPlay(); });
+      });
+
+      this.videos.forEach(video => {
+        video.addEventListener('ended', () => {
+          this.next();
+          this.startAutoPlay();
+        });
       });
 
       // Auto play
+      this.updateUI(); // this will play the video if it's the first slide
       this.startAutoPlay();
       
       // Pause on hover
-      this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
-      this.container.addEventListener('mouseleave', () => this.startAutoPlay());
+      this.container.addEventListener('mouseenter', () => {
+        this.isHovered = true;
+        this.stopAutoPlay();
+      });
+      this.container.addEventListener('mouseleave', () => {
+        this.isHovered = false;
+        this.startAutoPlay();
+      });
 
       // Touch events
       if (this.track) {
@@ -118,12 +134,30 @@ const { images = [
     }
 
     startAutoPlay() {
+      this.stopAutoPlay();
+      
+      if (this.isHovered) return;
+
+      const currentSlide = this.slides[this.currentIndex];
+      const video = currentSlide.querySelector('.carousel-video') as HTMLVideoElement | null;
+      
+      if (video) {
+        // El video controla el tiempo
+        return;
+      }
+
       // @ts-ignore
-      this.autoPlayInterval = setInterval(() => this.next(), 5000) as unknown as number;
+      this.autoPlayInterval = setTimeout(() => {
+        this.next();
+        this.startAutoPlay();
+      }, 5000) as unknown as number;
     }
 
     stopAutoPlay() {
-      if (this.autoPlayInterval) clearInterval(this.autoPlayInterval);
+      if (this.autoPlayInterval) {
+        clearTimeout(this.autoPlayInterval);
+        this.autoPlayInterval = undefined;
+      }
     }
 
     touchStart(e: TouchEvent) {
@@ -177,6 +211,18 @@ const { images = [
           indicator.classList.remove('bg-champagne', 'w-8');
         }
       });
+
+      // Handle videos
+      this.videos.forEach(v => {
+        v.pause();
+        v.currentTime = 0;
+      });
+
+      const currentSlide = this.slides[this.currentIndex];
+      const video = currentSlide.querySelector('.carousel-video') as HTMLVideoElement | null;
+      if (video) {
+        video.play().catch(e => console.error("Error playing video:", e));
+      }
     }
     
     next() {
