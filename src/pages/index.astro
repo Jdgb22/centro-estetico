@@ -129,7 +129,7 @@ const benefits = [
 
 const testimonials = [
   {
-    author: "Ana Maria",
+    name: "Ana Maria",
     text: "Confie en el plan antes de ver el resultado",
   },
   {
@@ -385,9 +385,9 @@ const testimonials = [
       <div class="mt-8 grid gap-5 md:grid-cols-3">
         {
           testimonials.map((testimonial) => (
-            <blockquote class="rounded-2xl border border-sand bg-pure p-6 shadow-soft">
+            <blockquote class="flex flex-col rounded-2xl border border-sand bg-pure p-6 shadow-soft">
               <p class="text-taupe">"{testimonial.text}"</p>
-              <footer class="mt-4 text-sm font-semibold text-terracotta">
+              <footer class="mt-auto pt-4 text-sm font-semibold text-terracotta">
                 {testimonial.name}
               </footer>
             </blockquote>
